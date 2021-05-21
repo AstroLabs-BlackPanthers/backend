@@ -15,7 +15,8 @@ router.post(
         const formData = {
             "courseName": req.body.courseName,
             "courseCode": req.body.courseCode,
-            "price": req.body.price
+            "time": req.body.time,
+            "tutorName":req.body.tutorName
         }
         
         // 2. Upload the data to MongoDB
@@ -73,7 +74,7 @@ router.post(
             { 'courseCode': 'CMP220' },
             {
                 $set: {
-                   'price': 3800 
+                   'time': 3800 
                 }
             }
         )

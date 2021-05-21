@@ -13,8 +13,12 @@ const ProductsSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        price: {
-            type: Number,
+        time: {
+            type: String,
+            required: true
+        },
+        tutorName:{
+            type: String,
             required: true
         }
     }
@@ -25,5 +29,3 @@ const ProductsModel = mongoose.model('products', ProductsSchema);
 
 module.exports = ProductsModel;
 
-//brand --> courseName
-//model --> courseCode

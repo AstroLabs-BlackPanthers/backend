@@ -3,7 +3,7 @@ const router = express.Router();
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
-const UsersModel = require('../models/UsersModel.js');
+const StudentsModel = require('../models/StudentsModel.js');
 require('dotenv').config()
 const jwtSecret = process.env.JWT_SECRET;
 
@@ -23,11 +23,11 @@ router.post(
             "address": req.body.address,
         }
 
-        // (2) Create instance of UsersModel
-        const newUsersModel = new UsersModel(formData);
+        // (2) Create instance of StudentsModel
+        const newStudentsModel = new StudentsModel(formData);
 
         // (3) Check if email exists
-        UsersModel
+        StudentsModel
         .findOne(
             { email: formData.email}
         )
@@ -53,8 +53,8 @@ router.post(
                                     console.log(cloudinaryErr)
                                 }
                                 else {
-                                    // Append the URL of the image in newUsersModel
-                                    newUsersModel.avatar = cloudinaryResult.url
+                                    // Append the URL of the image in newStudentsModel
+                                    newStudentsModel.avatar = cloudinaryResult.url
                                 }
                             }
                         )
@@ -72,10 +72,10 @@ router.post(
                                 theSalt,
                                 (err, hashedPassword) => {
                                     // (6) Replace the original password with encrypted version
-                                    newUsersModel.password = hashedPassword;
+                                    newStudentsModel.password = hashedPassword;
 
                                     // (7) Save the registration details
-                                    newUsersModel
+                                    newStudentsModel
                                     .save() // Promise
                                     .then( // When promise is resolved...
                                         (dbDocument) => {
@@ -117,7 +117,7 @@ router.post(
         }
 
         // (2) Check for email match in database
-        UsersModel
+        StudentsModel
         .findOne({ email: formData.email })
         // If MongoDB responds
         .then(
